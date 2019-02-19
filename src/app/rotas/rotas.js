@@ -44,4 +44,17 @@ module.exports = (app) => {
         //     );
         // });        
     });
+
+
+    app.get('/livros/form', function(req, resp){
+        resp.marko(require('../views/livros/form/form.marko'));
+    });
+
+    app.post('/livros', function(req, resp){
+        console.log(req.body); //Serão enviados para o corpo da requisição
+
+    })
+
+
+
 }
