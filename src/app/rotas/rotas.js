@@ -53,6 +53,12 @@ module.exports = (app) => {
     app.post('/livros', function(req, resp){
         console.log(req.body); //Serão enviados para o corpo da requisição
 
+        const livroDao = new LivroDao(db)
+        livroDao.adiciona(req.body)
+                .then(???) // vai definir como adiona no banco próxima aula
+                .catch (erro => console.log(erro));
+
+
     })
 
 
