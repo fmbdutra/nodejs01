@@ -50,17 +50,11 @@ module.exports = (app) => {
         resp.marko(require('../views/livros/form/form.marko'));
     });
 
-    app.post('/livros', function(req, resp){
+    app.post('/livros', function(req, resp) {
         console.log(req.body); //Serão enviados para o corpo da requisição
-
-        const livroDao = new LivroDao(db)
+        const livroDao = new LivroDao(db);
         livroDao.adiciona(req.body)
-                .then(???) // vai definir como adiona no banco próxima aula
+                .then(resp.redirect('/livros')) // vai definir como adiona no banco próxima aula
                 .catch (erro => console.log(erro));
-
-
     })
-
-
-
 }
