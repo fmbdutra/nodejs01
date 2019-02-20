@@ -22,7 +22,6 @@ class LivroDao{
                         console.log(err);
                         return reject(`Não foi possível adicionar o livro!`);
                     }
-
                     resolve();
                 }
             )
@@ -43,13 +42,12 @@ class LivroDao{
     }
 
     buscaPorId(id) {
-
         return new Promise((resolve, reject) => {
             this._db.get(
                 `
-                    SELECT *
-                    FROM livros
-                    WHERE id = ?
+                 SELECT * 
+                 FROM livros 
+                 WHERE id = ?
                 `,
                 [id],
                 (erro, livro) => {
@@ -64,7 +62,8 @@ class LivroDao{
 
     atualiza(livro) {
         return new Promise((resolve, reject) => {
-            this._db.run(`
+            this._db.run(
+            `
                 UPDATE livros SET
                 titulo = ?,
                 preco = ?,
@@ -88,7 +87,6 @@ class LivroDao{
     }
 
     remove(id) {
-
         return new Promise((resolve, reject) => {
             this._db.get(
                 `
@@ -106,10 +104,6 @@ class LivroDao{
             );
         });
     }
-
-
-
-
 }
 
 module.exports = LivroDao;

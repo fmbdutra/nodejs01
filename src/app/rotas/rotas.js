@@ -4,17 +4,22 @@ const db = require('../../config/database');
 module.exports = (app) => {
     app.get('/', function(req, resp) {
         resp.send(
-            `<html>
+            `
+            <html>
                 <head>
                     <meta charset="utf-8">
                 </head>
                 <body>
                     <h1> Casa do Código </h1>
                 </body> 
-            </html>`
+            </html>
+            `
         );
     });
     
+    //CRUD---------------------
+
+    //Lista Livros
     app.get('/livros', function(req, resp) {
         const livroDao = new LivroDao(db)
         livroDao.lista()
@@ -24,32 +29,14 @@ module.exports = (app) => {
                         livros: livros
                     }           
                 ))
-                .catch (erro => console.log(erro));
-        // livroDao.lista(function(erro, resultados){
-        //     resp.marko(
-        //                 require('../views/livros/lista/lista.marko'), 
-        //                 {
-        //                     livros: resultados
-        //                 }           
-        //             );
-        // });
-
-
-        // db.all('SELECT * FROM livros', function(erro, resultados){
-        //     resp.marko(
-        //         require('../views/livros/lista/lista.marko'), 
-        //         {
-        //             livros: resultados
-        //         }           
-        //     );
-        // });        
+                .catch (erro => console.log(erro));      
     });
-
 
     app.get('/livros/form', function(req, resp){
         resp.marko(require('../views/livros/form/form.marko'), {livro: {} });
     });
 
+    //Adição de livros
     app.post('/livros', function(req, resp) {
         console.log(req.body); //Serão enviados para o corpo da requisição
         const livroDao = new LivroDao(db);
@@ -58,6 +45,7 @@ module.exports = (app) => {
                 .catch (erro => console.log(erro));
     })
 
+    //Para edição de livros
     app.put('/livros', function(req, resp) {
         console.log(req.body); 
         const livroDao = new LivroDao(db);
@@ -66,6 +54,7 @@ module.exports = (app) => {
                 .catch (erro => console.log(erro));
     })
 
+    //Remover livros
     app.delete('/livros/:id', function(req, resp){
         const id = req.params.id;
         
@@ -75,6 +64,7 @@ module.exports = (app) => {
                 .catch(erro => console.log(erro));
     })
 
+    //Buscar ID
     app.get('/livros/form/:id', function(req, resp) {
         const id = req.params.id;
         const livroDao = new LivroDao(db);
